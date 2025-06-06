@@ -1,17 +1,34 @@
-Git: fatal: Unable to create '/home/ubuntu/work/zxs/daily_test/.git/index.lock': File exists.
+# Git 常见问题和命令
 
-查看ls -l /home/ubuntu/work/zxs/daily_test/.git/index.lock
+## index.lock 文件问题
+当遇到以下错误时：`fatal: Unable to create '/home/ubuntu/work/zxs/daily_test/.git/index.lock': File exists.`
 
-删除rm /home/ubuntu/work/zxs/daily_test/.git/index.lock
+解决方法：
+1. 检查锁文件：
+```bash
+ls -l /home/ubuntu/work/zxs/daily_test/.git/index.lock
+```
+2. 删除锁文件：
+```bash
+rm /home/ubuntu/work/zxs/daily_test/.git/index.lock
+```
 
-.gitignore 中写入的文件不会上传
+## Git 基础命令
 
+### .gitignore
+- 在 `.gitignore` 中列出的文件将不会被跟踪或上传
 
+### 取消暂存文件
+```bash
+git restore --staged filename     # Remove file from staging area
+```
 
-git restore --staged filename     取消git的跟踪
+### 推送更改
+```bash
+git push origin branch_name      # Push to specific branch
+```
 
-
-git push origin branch_name       推送
-
-
-git reset --soft HEAD~1     head往前移动一个
+### 重置提交
+```bash
+git reset --soft HEAD~1          # Move HEAD back one commit
+```

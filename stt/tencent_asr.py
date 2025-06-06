@@ -4,11 +4,14 @@ import threading
 from datetime import datetime
 import json
 import pyaudio
+import os
+from dotenv import load_dotenv
 
 sys.path.append("../..")
 from common import credential
 from asr import speech_recognizer
 
+load_dotenv(override=True)
 
 ENGINE_MODEL_TYPE = "16k_zh"
 SLICE_SIZE = 6400
@@ -98,9 +101,11 @@ class MySpeechRecognitionListener(speech_recognizer.SpeechRecognitionListener):
 
 def process_microphone(id):
     listener = MySpeechRecognitionListener(id)
-    credential_var = credential.Credential(SECRET_ID, SECRET_KEY)
+    credential_var = credential.Credential(
+        os.getenv("SECRET_ID"), os.getenv("SECRET_KEY")
+    )
     recognizer = speech_recognizer.SpeechRecognizer(
-        APP_ID, credential_var, ENGINE_MODEL_TYPE, listener
+        os.getenv("APP_ID"), credential_var, ENGINE_MODEL_TYPE, listener
     )
     recognizer.set_filter_modal(1)
     recognizer.set_filter_punc(1)
@@ -115,7 +120,12 @@ def process_microphone(id):
         format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK
     )
 
-    print("开始录音，按Ctrl+C停止...")
+    recognizer = speech_recognizer.SpeechRecognizer(
+        os.getenv("APP_ID"),
+        credential_var,
+        ENGINE_MODEL_TYPE,
+        listener,
+    )
     try:
         recognizer.start()
         while True:
