@@ -1,0 +1,9 @@
+
+train_audio_dir: ./data/train
+val_audio_dir: ./data/val
+batch_size: 4
+shuffle: true
+
+
+learning_rate: 0.001
+num_epochs: 10
