@@ -8,8 +8,8 @@ import os
 from dotenv import load_dotenv
 
 sys.path.append("../..")
-from common import credential
-from asr import speech_recognizer
+from tencent_transcribe.common import credential
+from tencent_transcribe.asr import speech_recognizer
 
 load_dotenv(override=True)
 
